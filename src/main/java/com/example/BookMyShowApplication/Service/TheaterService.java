@@ -68,7 +68,7 @@ public class TheaterService {
 
         int PremiumSeatCounter = 0;
         ch = 'A';
-        rowNo = 1;
+        rowNo = rowNo+1;
 
         while(PremiumSeatCounter < noOfPremiumSeats){
             String seatNo = rowNo + ch + "";
@@ -89,7 +89,7 @@ public class TheaterService {
 
         int ReclinerSeatCounter = 0;
         ch = 'A';
-        rowNo = 1;
+        rowNo = rowNo+1;
 
         while(ReclinerSeatCounter < noOfReclinerSeats){
             String seatNo = rowNo + ch + "";
