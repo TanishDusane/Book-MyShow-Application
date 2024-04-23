@@ -10,7 +10,6 @@ import com.example.BookMyShowApplication.Requests.AddTheaterSeats;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,20 +43,19 @@ public class TheaterService {
         Integer theaterId = addTheaterSeats.getTheaterId();
         Theater theater = theaterRepository.findById(theaterId).get();
 
-        int classSeatCounter = 0, rowNo = 1;
+        int classSeatCounter = 1, rowNo = 1;
         char ch = 'A';
 
         List<TheaterSeat> theaterSeats = new ArrayList<>();
 
-        while(classSeatCounter < noOfClassicSeats){
-            String seatNo = rowNo + ch + "";
+        while(classSeatCounter <= noOfClassicSeats){
+            String seatNo = rowNo + "" + ch;
 
             TheaterSeat theaterSeat = TheaterSeat.builder().seatNo(seatNo).seatType(SeatType.CLASSIC)
                                       .theater(theater).build();
 
             theaterSeats.add(theaterSeat);
-
-            ch = (char) (ch - 'A'+1);
+            ch++;
 
             if(classSeatCounter%5 == 0){
                 rowNo = rowNo+1;
@@ -66,18 +64,20 @@ public class TheaterService {
             classSeatCounter++;
         }
 
-        int PremiumSeatCounter = 0;
+        int PremiumSeatCounter = 1;
         ch = 'A';
-        rowNo = rowNo+1;
 
-        while(PremiumSeatCounter < noOfPremiumSeats){
-            String seatNo = rowNo + ch + "";
+        if(classSeatCounter%5 != 1){
+            rowNo = rowNo+1;
+        }
+
+        while(PremiumSeatCounter <= noOfPremiumSeats){
+            String seatNo = rowNo + "" + ch;
 
             TheaterSeat theaterSeat = TheaterSeat.builder().seatNo(seatNo).seatType(SeatType.PRIME)
                                       .theater(theater).build();
 
             theaterSeats.add(theaterSeat);
-
             ch++;
 
             if(PremiumSeatCounter % 5 == 0){
@@ -87,18 +87,20 @@ public class TheaterService {
             PremiumSeatCounter++;
         }
 
-        int ReclinerSeatCounter = 0;
+        int ReclinerSeatCounter = 1;
         ch = 'A';
-        rowNo = rowNo+1;
 
-        while(ReclinerSeatCounter < noOfReclinerSeats){
-            String seatNo = rowNo + ch + "";
+        if(PremiumSeatCounter%5 != 1){
+            rowNo = rowNo+1;
+        }
+
+        while(ReclinerSeatCounter <= noOfReclinerSeats){
+            String seatNo = rowNo + "" + ch;
 
             TheaterSeat theaterSeat = TheaterSeat.builder().seatNo(seatNo).seatType(SeatType.RECLINER)
                     .theater(theater).build();
 
             theaterSeats.add(theaterSeat);
-
             ch++;
 
             if(ReclinerSeatCounter % 5 == 0){
