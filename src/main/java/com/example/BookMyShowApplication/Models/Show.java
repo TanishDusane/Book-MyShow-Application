@@ -3,28 +3,31 @@ package com.example.BookMyShowApplication.Models;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
-@Table(name = "theaters")
+@Table(name = "shows")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Theater {
+public class Show {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer theaterId;
+    Integer showId;
 
-    Integer noOfScreens;
-    String name;
-    String address;
+    LocalDate showDate; //"YYYY-MM-DD"
+    LocalTime showTime; //"HH:MM:SS"
 
-    @OneToMany(mappedBy = "theater",cascade = CascadeType.ALL)
-    private List<TheaterSeat> theaterSeatList = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn
+    Movie movie;
+
+    @ManyToOne
+    @JoinColumn
+    Theater theater;
 }
