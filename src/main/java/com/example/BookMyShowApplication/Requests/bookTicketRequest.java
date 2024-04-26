@@ -11,7 +11,7 @@ public class bookTicketRequest {
     private String movieName;
     private LocalDate showDate;
     private LocalTime showTime;
-    private List<String> seatNos;
+    private List<String> requestedSeats;
     private Integer theaterId;
     private String mobNo;
 }

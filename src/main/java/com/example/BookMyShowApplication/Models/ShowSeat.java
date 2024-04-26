@@ -30,4 +30,8 @@ public class ShowSeat {
     @ManyToOne
     @JoinColumn
     private Show show;
+
+    @ManyToOne
+    @JoinColumn
+    private Movie movie;
 }

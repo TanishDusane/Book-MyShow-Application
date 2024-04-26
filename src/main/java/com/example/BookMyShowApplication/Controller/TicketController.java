@@ -4,6 +4,8 @@ import com.example.BookMyShowApplication.Models.Ticket;
 import com.example.BookMyShowApplication.Requests.bookTicketRequest;
 import com.example.BookMyShowApplication.Service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +19,13 @@ public class TicketController {
     private TicketService ticketService;
 
     @PostMapping("bookTicket")
-    public String bookTicket(@RequestBody bookTicketRequest bookTicketRequest){
-        String response = ticketService.bookTicket(bookTicketRequest);
-        return response;
+    public ResponseEntity bookTicket(@RequestBody bookTicketRequest bookTicketRequest){
+        try {
+            Ticket ticket = ticketService.bookTicket(bookTicketRequest);
+            return new ResponseEntity(ticket, HttpStatus.OK);
+        } catch (Exception e) {
+            String errorMessage = "Error while booking your ticket: " + e.getMessage();
+            return new ResponseEntity(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

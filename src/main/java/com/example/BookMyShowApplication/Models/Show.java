@@ -22,6 +22,7 @@ public class Show {
 
     LocalDate showDate; //"YYYY-MM-DD"
     LocalTime showTime; //"HH:MM:SS"
+    String movieName;
 
     @ManyToOne
     @JoinColumn

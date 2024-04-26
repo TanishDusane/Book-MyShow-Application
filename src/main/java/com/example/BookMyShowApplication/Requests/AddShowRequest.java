@@ -9,6 +9,6 @@ public class AddShowRequest {
 
     private LocalDate showDate;
     private LocalTime showTime;
-    private String movieName;
+    private Integer movieId;
     private Integer theaterId;
 }

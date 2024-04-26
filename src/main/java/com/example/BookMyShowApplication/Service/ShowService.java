@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ShowService {
@@ -35,20 +36,20 @@ public class ShowService {
 
     public String addShow(AddShowRequest showRequest){
 
-        Movie movie = movieRepository.findMovieByMovieName(showRequest.getMovieName());
-
+        Movie movie = movieRepository.findById(showRequest.getMovieId()).get();
         Theater theater = theaterRepository.findById(showRequest.getTheaterId()).get();
 
         Show show = Show.builder().
                     showDate(showRequest.getShowDate()).
                     showTime(showRequest.getShowTime()).
                     movie(movie).
+                    movieName(movie.getMovieName()).
                     theater(theater).
                     build();
 
         show = showRepository.save(show);
 
-        return "The Show has been saved to DataBase with ShowID " + show;
+        return "The Show has been saved to DataBase with ShowID " + show.getShowId();
     }
 
     public String addShowSeats(AddShowSeatsRequest showSeatsRequest){
