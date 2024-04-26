@@ -24,7 +24,8 @@ public class TheaterService {
 
     public String addTheater(@RequestBody AddTheaterRequest addTheaterRequest){
 
-        Theater theater = Theater.builder().address(addTheaterRequest.getAddress())
+        Theater theater = Theater.builder()
+                .address(addTheaterRequest.getAddress())
                 .noOfScreens(addTheaterRequest.getNoOfScreens())
                 .name(addTheaterRequest.getName())
                 .build();
@@ -46,15 +47,18 @@ public class TheaterService {
         int classSeatCounter = 1, rowNo = 1;
         char ch = 'A';
 
-        List<TheaterSeat> theaterSeats = new ArrayList<>();
+        List<TheaterSeat> theaterSeatList = new ArrayList<>();
 
         while(classSeatCounter <= noOfClassicSeats){
             String seatNo = rowNo + "" + ch;
 
-            TheaterSeat theaterSeat = TheaterSeat.builder().seatNo(seatNo).seatType(SeatType.CLASSIC)
-                                      .theater(theater).build();
+            TheaterSeat theaterSeat = TheaterSeat.builder()
+                                      .seatNo(seatNo)
+                                      .seatType(SeatType.CLASSIC)
+                                      .theater(theater)
+                                      .build();
 
-            theaterSeats.add(theaterSeat);
+            theaterSeatList.add(theaterSeat);
             ch++;
 
             if(classSeatCounter%5 == 0){
@@ -74,10 +78,13 @@ public class TheaterService {
         while(PremiumSeatCounter <= noOfPremiumSeats){
             String seatNo = rowNo + "" + ch;
 
-            TheaterSeat theaterSeat = TheaterSeat.builder().seatNo(seatNo).seatType(SeatType.PRIME)
-                                      .theater(theater).build();
+            TheaterSeat theaterSeat = TheaterSeat.builder()
+                                    .seatNo(seatNo)
+                                    .seatType(SeatType.PRIME)
+                                    .theater(theater)
+                                    .build();
 
-            theaterSeats.add(theaterSeat);
+            theaterSeatList.add(theaterSeat);
             ch++;
 
             if(PremiumSeatCounter % 5 == 0){
@@ -97,10 +104,13 @@ public class TheaterService {
         while(ReclinerSeatCounter <= noOfReclinerSeats){
             String seatNo = rowNo + "" + ch;
 
-            TheaterSeat theaterSeat = TheaterSeat.builder().seatNo(seatNo).seatType(SeatType.RECLINER)
-                    .theater(theater).build();
+            TheaterSeat theaterSeat = TheaterSeat.builder()
+                                    .seatNo(seatNo)
+                                    .seatType(SeatType.RECLINER)
+                                    .theater(theater)
+                                    .build();
 
-            theaterSeats.add(theaterSeat);
+            theaterSeatList.add(theaterSeat);
             ch++;
 
             if(ReclinerSeatCounter % 5 == 0){
@@ -110,8 +120,8 @@ public class TheaterService {
             ReclinerSeatCounter++;
         }
 
-        theaterSeatsRepository.saveAll(theaterSeats);
-
+        theater.setTheaterSeatList(theaterSeatList);
+        theaterRepository.save(theater);
         return "Theater seats has been created successfully";
     }
 }

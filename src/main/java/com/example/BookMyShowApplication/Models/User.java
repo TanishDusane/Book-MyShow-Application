@@ -4,27 +4,25 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
-@Table(name = "theaters")
+@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Theater {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer theaterId;
+    Integer userId;
 
-    Integer noOfScreens;
     String name;
-    String address;
 
-    @OneToMany(mappedBy = "theater",cascade = CascadeType.ALL)
-    List<TheaterSeat> theaterSeatList = new ArrayList<>();
+    @Column(unique = true)
+    String emailId;
+
+    @Column(unique = true)
+    String mobNo;
 }

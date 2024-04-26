@@ -3,31 +3,31 @@ package com.example.BookMyShowApplication.Models;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "shows")
+@Table(name = "tickets")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Show {
+public class Ticket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer showId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    String ticketId;
 
-    LocalDate showDate; //"YYYY-MM-DD"
-    LocalTime showTime; //"HH:MM:SS"
+    String movieName;
+    LocalDate showDate;
+    LocalTime showTime;
+    String theaterNameAddress;
+    Integer totalAmountPaid;
 
     @ManyToOne
     @JoinColumn
-    Movie movie;
-
-    @ManyToOne
-    @JoinColumn
-    private Theater theater;
+    private User user;
 }

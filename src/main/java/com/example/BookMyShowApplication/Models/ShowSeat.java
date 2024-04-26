@@ -1,30 +1,33 @@
 package com.example.BookMyShowApplication.Models;
 
+import com.example.BookMyShowApplication.Enums.SeatType;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
-@Table(name = "theaters")
+@Table(name = "shows_seats")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Theater {
+public class ShowSeat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer theaterId;
+    Integer showSeatId;
 
-    Integer noOfScreens;
-    String name;
-    String address;
+    String seatNo;
 
-    @OneToMany(mappedBy = "theater",cascade = CascadeType.ALL)
-    List<TheaterSeat> theaterSeatList = new ArrayList<>();
+    @Enumerated(value = EnumType.STRING)
+    SeatType seatType;
+
+    Integer price;
+    Boolean isAvailable;
+
+    @ManyToOne
+    @JoinColumn
+    private Show show;
 }

@@ -1,7 +1,5 @@
 package com.example.BookMyShowApplication.Controller;
 
-import com.example.BookMyShowApplication.Models.Theater;
-import com.example.BookMyShowApplication.Repository.TheaterRepository;
 import com.example.BookMyShowApplication.Requests.AddTheaterRequest;
 import com.example.BookMyShowApplication.Requests.AddTheaterSeats;
 import com.example.BookMyShowApplication.Service.TheaterService;
