@@ -46,4 +46,4 @@ Once the application is up and running, you can interact with it through the pro
 
 ------
 
-  HAPPY CODING!
+Happy Coding!
