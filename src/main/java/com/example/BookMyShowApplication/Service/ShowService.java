@@ -56,6 +56,9 @@ public class ShowService {
 
         Integer showId = showSeatsRequest.getShowId();
         Show show = showRepository.findById(showId).get();
+        Integer movieId = show.getMovie().getMovieId(); // Assuming getId() returns the movie_id
+        Movie movie = movieRepository.findById(movieId).get();
+
 
         Theater theater = show.getTheater();
         List<TheaterSeat> theaterSeatsList = theater.getTheaterSeatList();
@@ -68,6 +71,7 @@ public class ShowService {
                     .seatType(theaterSeat.getSeatType())
                     .isAvailable(Boolean.TRUE)
                     .show(show)
+                    .movie(movie)
                     .build();
 
             if(theaterSeat.getSeatType().equals(SeatType.CLASSIC)){

@@ -6,7 +6,6 @@ import com.example.BookMyShowApplication.Repository.*;
 import com.example.BookMyShowApplication.Requests.bookTicketRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -53,7 +52,7 @@ public class TicketService {
                         areAllSeatsAvilable = Boolean.FALSE;
                         break;
                     }
-                    totalAmount += showSeat.getPrice();
+                    totalAmount = totalAmount + showSeat.getPrice();
                 }
             }
         }
@@ -73,12 +72,12 @@ public class TicketService {
         User user = userRepository.findUserByMobNo(bookTicketRequest.getMobNo());
 
         Ticket ticket = Ticket.builder().user(user)
-                .movieName(bookTicketRequest.getMovieName())
-                .showDate(bookTicketRequest.getShowDate())
-                .theaterNameAddress(theater.getName() + " " + theater.getAddress())
-                .showTime(bookTicketRequest.getShowTime())
-                .totalAmountPaid(totalAmount)
-                .build();
+                        .movieName(bookTicketRequest.getMovieName())
+                        .showDate(bookTicketRequest.getShowDate())
+                        .theaterNameAddress(theater.getName() + " " + theater.getAddress())
+                        .showTime(bookTicketRequest.getShowTime())
+                        .totalAmountPaid(totalAmount)
+                        .build();
 
         ticket = ticketRepository.save(ticket);
 
